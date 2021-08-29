@@ -1,16 +1,20 @@
 import "./App.css";
 import * as THREE from "three";
 import React, { Suspense, useRef, useState } from "react";
-import { Canvas, extend , useFrame } from "@react-three/fiber";
+import { Canvas, extend, useFrame } from "@react-three/fiber";
 import { shaderMaterial, useTexture } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
-import { useSpring, animated } from '@react-spring/three'
+import { useSpring, animated } from "@react-spring/three";
 import img1 from "../src/img/img1.jpg";
 import img2 from "../src/img/img2.jpg";
 
 const WaveShaderMaterial = shaderMaterial(
   // Uniform
-  {uTime: 0 , uColor: new THREE.Color(1.0,0.0,0.0), uTexture: new THREE.Texture()},
+  {
+    uTime: 0,
+    uColor: new THREE.Color(1.0, 0.0, 0.0),
+    uTexture: new THREE.Texture(),
+  },
   // Vertex Shader
   glsl`
 
@@ -62,23 +66,23 @@ const WaveShaderMaterial = shaderMaterial(
 extend({ WaveShaderMaterial });
 
 const KingFrame = () => {
-
   const [active, setActive] = useState(false);
-  const { scale } = useSpring({ scale: active ? 2 : 1 })
-
+  const { scale } = useSpring({ scale: active ? 2 : 1 });
 
   const ref = useRef();
-  
-  useFrame(({clock})=>(
-    ref.current.uTime = clock.getElapsedTime()
-  ));
 
-  const [imgg1 , imgg2] = useTexture([img1,img2]);
+  useFrame(({ clock }) => (ref.current.uTime = clock.getElapsedTime()));
+
+  const [imgg1, imgg2] = useTexture([img1, img2]);
 
   return (
     <animated.mesh onClick={() => setActive(!active)} scale={scale}>
       <planeBufferGeometry args={[0.9, 0.6, 16, 16]} />
-      <waveShaderMaterial ref={ref} uColor={"gold"} uTexture={active? imgg1 : imgg2} />
+      <waveShaderMaterial
+        ref={ref}
+        uColor={"gold"}
+        uTexture={active ? imgg1 : imgg2}
+      />
     </animated.mesh>
   );
 };
@@ -86,7 +90,7 @@ const KingFrame = () => {
 function App() {
   return (
     <div className="app">
-      <Canvas camera={{fov:9}}>
+      <Canvas camera={{ fov: 9 }}>
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         <Suspense fallback={null}>
@@ -94,9 +98,8 @@ function App() {
         </Suspense>
       </Canvas>
       <div className="text">
-      <h1>
-      Custom Shader
-      </h1>
+        <h1>Custom Shader</h1>
+        <p>Click on Image</p>
       </div>
     </div>
   );
