@@ -93,6 +93,11 @@ function App() {
           <KingFrame />
         </Suspense>
       </Canvas>
+      <div className="text">
+      <h1>
+      Custom Shader
+      </h1>
+      </div>
     </div>
   );
 }
