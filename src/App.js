@@ -64,7 +64,7 @@ extend({ WaveShaderMaterial });
 const KingFrame = () => {
 
   const [active, setActive] = useState(false);
-  const { scale } = useSpring({ scale: active ? 1.2 : 1 })
+  const { scale } = useSpring({ scale: active ? 2 : 1 })
 
 
   const ref = useRef();
@@ -86,7 +86,7 @@ const KingFrame = () => {
 function App() {
   return (
     <div className="app">
-      <Canvas camera={{fov:10}}>
+      <Canvas camera={{fov:9}}>
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         <Suspense fallback={null}>
