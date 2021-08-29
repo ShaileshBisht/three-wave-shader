@@ -6,7 +6,7 @@ import { shaderMaterial, useTexture } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
 import { useSpring, animated } from "@react-spring/three";
 import img1 from "../src/img/img1.jpg";
-import img2 from "../src/img/img2.jpg";
+import img2 from "../src/img/img3.jpg";
 
 const WaveShaderMaterial = shaderMaterial(
   // Uniform
