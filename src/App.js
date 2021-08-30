@@ -2,7 +2,7 @@ import "./App.css";
 import * as THREE from "three";
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
-import { shaderMaterial, useTexture } from "@react-three/drei";
+import { shaderMaterial, useTexture, Html, useProgress } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
 import { useSpring, animated } from "@react-spring/three";
 import img1 from "../src/img/img1.jpg";
@@ -65,6 +65,11 @@ const WaveShaderMaterial = shaderMaterial(
 
 extend({ WaveShaderMaterial });
 
+const Loader = () => {
+  const { progress } = useProgress()
+  return <Html center>{progress} % loaded</Html>
+};
+
 const KingFrame = () => {
   const [active, setActive] = useState(false);
   const { scale } = useSpring({ scale: active ? 2 : 1 });
@@ -93,7 +98,7 @@ function App() {
       <Canvas camera={{ fov: 9 }}>
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loader />}>
           <KingFrame />
         </Suspense>
       </Canvas>
